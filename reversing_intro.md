@@ -6,10 +6,14 @@
     * [Exercise 1](reversing_intro.html#exercise-1---beginning-re-with-jadx)
 1. [Reverse Engineering Android Apps - DEX Bytecode](reversing_dex.html)
 	* [Exercise 2](reversing_dex.html#exercise-2---reverse-engineer-the-dex)
-	* *Execises 3 & 4 Coming Soon*
+	* [Exercise 3](reversing_dex.html#exercise-3---reverse-engineer-the-dex-to-identify-the-vuln)
+	* [Exercise 4](reversing_dex.html#exercise-4---arbitrary-command-execution-take-2)
 1. [Reverse Engineering Android Apps - Native Libraries](reversing_native_libs.html)
 	* [Exercise 5](reversing_native_libs.html#exercise-5---find-the-address-of-the-native-function)
 	* [Exercise 6](reversing_native_libs.html#exercise-6---find-and-reverse-the-native-function)
+1. [Reverse Engineering Android Apps - Obfuscation](obfuscation.html)
+	* [Exercise 7](obfuscation.html#exercise-7---string-deobfuscation)
+1. [Conclusion](conclusion.html)
 
 
 
@@ -21,7 +25,7 @@ One of the main keys of reverse engineering, regardless of platform, that all re
 
 Android applications can be very large and realistically, you likely won't be able to review every line of code. So where do you begin? My guidance when deciding where to begin doing static analysis is:
 
-1. **What is your goal?** In *most* cases, you are doing RE/static analysis to answer a specific question. Remember what that is and go back to it often. It's very easy to go down a rabbit hole of code that is not related to the problem you're tryng to solve.
+1. **What is your goal?** In *most* cases, you are doing RE/static analysis to answer a specific question. Remember what that is and go back to it often. It's very easy to go down a rabbit hole of code that is not related to the problem you're trying to solve.
 1. **API Calls** Most interesting behaviors that you may want to identify in Android, ultimately come down to a single, or a set of API calls. For example, let's say you're evaluating an application to see if it's doing [Premium SMS Fraud](https://developers.google.com/android/play-protect/phacategories#billing-fraud). Premium SMS Fraud means that an app is sending a premium SMS message without user consent. Therefore, to do the fraud, the app must send an SMS message. There's a finite number of API calls that will allow an application to send an SMS message. For example, `sendTextMessage`, `sendMultipartMessage`,`smsto:`. Therefore one of the key places to begin analysis, is to find the API calls that are required for the behavior you're interested in, and then search for them in your application. You can then begin your reversing around those API calls.
 1. **App Entry Points** In many cases, you're only interested in code that can be executed, not dead code, in the application. Therefore, starting at an application entry point (detailed in [this section](app_fundamental.html#application-entry-points)) is a good choice if you're not sure where else to start.
 1. **Decryption Methods** Java largely relies on strings to do many of its operations. For example, to send intents or call methods through reflection. If your application has no human readable strings, then it likely means its obfuscated or encrypted. A good starting point is to find if either "jumbled" strings or binary arrays are all passed to the same methods. If they are, those methods are likely the deobfuscation or decryption methods. 
@@ -47,8 +51,12 @@ You are a malware analyst for Android applications. You are concerned that this 
 1. Open AndroidManifest.xml and identify any of the application entry points described in the [Application Entry Points](app_fundamentals.html#application-entry-points) section.
 1. Using the information gathered in the previous step and the [Starting Points for RE](#starting-points-for-re) section above. Decide on a class or classes, that you think would be classes that you'd begin analyzing when you start your reversing.
 
-[//]: # TODO write answer pages for the different steps.
-*Coming Soon: Answer videos*
+### Solution
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/XvocjlxuccI" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+<br/>
+
 
 [**NEXT** > 4. Reverse Engineering Android Apps - DEX Bytecode](reversing_dex.html)
 
